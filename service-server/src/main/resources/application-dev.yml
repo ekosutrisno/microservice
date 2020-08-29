@@ -1,9 +1,39 @@
 server:
   port: 8081
 
+eureka:
+  instance:
+    instance-id: APP-SERVICES-AUTH
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 2
+    prefer-ip-address: true
+    status-page-url: http://localhost:8081/swagger-ui.html
+    virtual-host-name: app-services-auth
+    hostname: localhost
+    ip-address: localhost
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://localhost:8089/eureka
+
 spring:
   application:
-    name: app-service-server
+    name: APP-SERVICES-AUTH
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5433/oauth_db
+#    username: postgres
+#    password: root
+#  jpa:
+#    hibernate:
+#      ddl-auto: validate
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#    show-sql: false
 
 config:
   oauth2:
@@ -45,4 +75,3 @@ config:
       HgyXjlcuVowe4/ZjkPukfUivBiKj2Lp+fFwEkl9ZmX7IajML4t0wEyu6KCdBdJaP
       VQIDAQAB
       -----END PUBLIC KEY-----
-

@@ -32,13 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
               .roles("USER");
    }
 
-   @Override
-   protected void configure(HttpSecurity http) throws Exception {
-      http.csrf().disable()
-              .authorizeRequests()
-              .anyRequest().authenticated();
-   }
-
    @Bean
    public PasswordEncoder passwordEncoder() {
       return PasswordEncoderFactories.createDelegatingPasswordEncoder();
