@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: Eko Sutrisno
+service:
+  name: Config Server
