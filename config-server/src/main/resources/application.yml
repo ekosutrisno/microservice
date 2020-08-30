@@ -1,0 +1,19 @@
+server:
+  port: 8088
+spring:
+#  profiles:
+#    active: native
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ekosutrisno/spring-config-backed
+          search-paths:
+            - '*service'
+          skip-ssl-validation: true
+          timeout: 5
+
+          #username:
+          #password:
+
+
