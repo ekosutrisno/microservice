@@ -5,4 +5,5 @@
 
 ## Info for Service Name and Description
  - Eureka Service : eureka-service-server
- - Auth Service : eureka-server
+ - Auth Service : service-server
+ - Config Server : config-server
