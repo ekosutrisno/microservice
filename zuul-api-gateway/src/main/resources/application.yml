@@ -1,0 +1,43 @@
+server:
+  port: 9090
+
+zuul:
+  routes:
+    azec-service-basic-promotion:
+      path: /azec-service-basic-promotion/**
+      serviceId: AZEC-SERVICES-BASIC-PROMOTION-DEVELOPMENT
+
+ribbon:
+  eureka:
+    enabled: false
+
+AZEC-SERVICES-BASIC-PROMOTION-DEVELOPMENT:
+  ribbon:
+    listOfServers: http://localhost:8090
+    ConnectTimeout: 1000
+    ReadTimeout: 3000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+
+eureka:
+  instance:
+    instance-id: SERVICES-ZUUL-GATEWAY
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 2
+    prefer-ip-address: true
+    secure-port: ${server.port}
+    status-page-url: http://${eureka.instance.hostname}:${server.port}/actuator
+    virtual-host-name: service-zuul-gateway
+    hostname: localhost
+    ip-address: localhost
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8089/eureka/
+
+spring:
+  application:
+    name: SERVICES-ZUUL-GATEWAY
