@@ -7,3 +7,4 @@
  - Eureka Service : eureka-service-server
  - Auth Service : service-server
  - Config Server : config-server
+ - Api Gateway : zuul-api-gateway
