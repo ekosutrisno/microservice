@@ -1,8 +1,8 @@
 server:
   port: 8088
 spring:
-#  profiles:
-#    active: native
+  application:
+    name: APP-CONFIG-SERVER
   cloud:
     config:
       server:
@@ -16,4 +16,23 @@ spring:
           #username:
           #password:
 
+#Ureka config
+eureka:
+  instance:
+    instance-id: APP-CONFIG-SERVER
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 2
+    prefer-ip-address: true
+    secure-port: ${server.port}
+    status-page-url: http://${eureka.instance.hostname}:${server.port}/actuator
+    virtual-host-name: service-zuul-gateway
+    hostname: localhost
+    ip-address: localhost
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8089/eureka/
 
