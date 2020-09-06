@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 /**
  * @Author Eko Sutrisno
- * @create 22/08/2020 21:50
+ * @Create 22/08/2020 21:50
  */
 @Configuration
 @EnableAuthorizationServer
