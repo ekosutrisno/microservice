@@ -1,5 +1,0 @@
-spring:
-  application:
-    name: Eko Sutrisno O1 Prod
-service:
-  name: Auth Server
