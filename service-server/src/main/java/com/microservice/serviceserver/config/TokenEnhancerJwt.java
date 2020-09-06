@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * @Author Eko Sutrisno
- * @create 22/08/2020 22:50
+ * @Create 22/08/2020 22:50
  */
 
 public class TokenEnhancerJwt extends JwtAccessTokenConverter {

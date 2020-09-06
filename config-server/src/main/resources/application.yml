@@ -2,7 +2,7 @@ server:
   port: 8088
 spring:
   application:
-    name: APP-CONFIG-SERVER
+    name: APP-SERVICES-CONFIG
   cloud:
     config:
       server:
@@ -19,7 +19,7 @@ spring:
 #Ureka config
 eureka:
   instance:
-    instance-id: APP-CONFIG-SERVER
+    instance-id: APP-SERVICES-CONFIG
     lease-renewal-interval-in-seconds: 10
     lease-expiration-duration-in-seconds: 2
     prefer-ip-address: true
