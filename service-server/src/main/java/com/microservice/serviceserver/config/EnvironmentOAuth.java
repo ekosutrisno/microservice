@@ -1,13 +1,11 @@
 package com.microservice.serviceserver.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 
 /**
  * @Author Eko Sutrisno
- * @create 22/08/2020 23:00
+ * @Create 22/08/2020 23:00
  */
 @Configuration
 @ConfigurationProperties("config.oauth2")
@@ -49,22 +47,3 @@ public class EnvironmentOAuth {
       this.usejwttokenconverter = usejwttokenconverter;
    }
 }
-
-//   @Autowired
-//   private Environment env;
-//
-//   public String getPrivatekey() {
-//      return env.getProperty("config.oauth2.privatekey");
-//   }
-//
-//   public String getPublickey() {
-//      return env.getProperty("config.oauth2.publickey");
-//   }
-//
-//   public Boolean getUsejdbcstoretoken() {
-//      return Boolean.valueOf(env.getProperty("config.oauth2.usejdbcstoretoken"));
-//   }
-//
-//   public Boolean getUsejwttokenconverter() {
-//      return Boolean.valueOf(env.getProperty("config.oauth2.usejwttokenconverter"));
-//   }

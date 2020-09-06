@@ -4,7 +4,7 @@ import java.util.UUID;
 
 /**
  * @Author Eko Sutrisno
- * @create 22/08/2020 23:51
+ * @Create 22/08/2020 23:51
  */
 public class User {
    static final String TABLE_NAME = "tbl_user";
