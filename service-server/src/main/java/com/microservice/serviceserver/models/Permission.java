@@ -1,31 +1,38 @@
 package com.microservice.serviceserver.models;
 
-import java.util.UUID;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @Author Eko Sutrisno
  * @Create 23/08/2020 0:09
  */
-public class Permission {
-   static final String TABLE_NAME="tbl_permission";
+@Entity
+@Table(name = Permission.TABLE_NAME)
+public class Permission implements Serializable {
+   static final String TABLE_NAME = "tbl_permission";
 
-   private String permissionId = UUID.randomUUID().toString();
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Long id;
+   @Column(name = "name")
    private String name;
 
    public Permission() {
    }
 
-   public Permission(String permissionId, String name) {
-      this.permissionId = permissionId;
+   public Permission(Long id, String name) {
+      this.id = id;
       this.name = name;
    }
 
-   public String getPermissionId() {
-      return permissionId;
+   public Long getId() {
+      return id;
    }
 
-   public void setPermissionId(String permissionId) {
-      this.permissionId = permissionId;
+   public void setId(Long id) {
+      this.id = id;
    }
 
    public String getName() {
@@ -35,4 +42,5 @@ public class Permission {
    public void setName(String name) {
       this.name = name;
    }
+
 }

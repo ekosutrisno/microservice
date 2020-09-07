@@ -15,6 +15,8 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import javax.sql.DataSource;
+
 
 /**
  * @Author Eko Sutrisno
@@ -29,6 +31,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
    @Autowired
    private PasswordEncoder passwordEncoder;
    @Autowired
+   private DataSource dataSource;
+   @Autowired
    private EnvironmentOAuth env;
 
    @Override
@@ -39,13 +43,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
    @Override
    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-      clients.inMemory()
-              .withClient("Puspita Sari")
-              .secret(passwordEncoder.encode("akucintakamu"))
-              .authorizedGrantTypes("client_credentials", "password", "refresh_token")
-              .scopes("profile", "email")
-              .accessTokenValiditySeconds(6000)
-              .refreshTokenValiditySeconds(6000);
+      clients.jdbc(dataSource)
+              .passwordEncoder(passwordEncoder);
    }
 
    @Override

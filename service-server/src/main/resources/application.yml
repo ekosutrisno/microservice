@@ -1,0 +1,77 @@
+server:
+  port: 8081
+
+eureka:
+  instance:
+    instance-id: APP-SERVICES-AUTH
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 2
+    prefer-ip-address: true
+    status-page-url: http://localhost:8081/swagger-ui.html
+    virtual-host-name: app-services-auth
+    hostname: localhost
+    ip-address: localhost
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://localhost:8089/eureka
+
+spring:
+  application:
+    name: APP-SERVICES-AUTH
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/microservice_db
+    username: postgres
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+
+config:
+  oauth2:
+    usejdbcstoretoken: false
+    usejwttokenconverter: true
+    privatekey: -----BEGIN RSA PRIVATE KEY-----
+      MIIEogIBAAKCAQEAy9FEge6SeHUix+it8mRa4S2K2J4DjeFt3fbLIkFLMWI0WbrD
+      pLD+Kfb5lBTjG6zCHAWIPTFp8AbNWjoHqsU8X5M57wp9NKqBhGbjEtybgFsucCq7
+      lQBpGp6bdddT1aQpGFoHvAsWAvrmklIIa8irSt36CueTb3eI1BWev06+Mi4Sv3LT
+      RZd6CkCtXl0w1DawtKW5DHRS/t5Vi+52938GFhQ4l5YfjzkMgN7SWvgoExgB3eJJ
+      rCq2k1RDZ9LoatIzt54CyLPFPRXFaDruvH1UHgyXjlcuVowe4/ZjkPukfUivBiKj
+      2Lp+fFwEkl9ZmX7IajML4t0wEyu6KCdBdJaPVQIDAQABAoIBAFioo0BR4uz7JzIG
+      iQQTm2SwRuGLeshQ81XGcP5poKfOrC8MCuatByKCCHbdzxzOvXErBuR3hjme+9zv
+      uT4Tpft9M4pD6crrEIPjrYsa45mmEEFClW5vS0kFDWLpU9JvImExaIPn3p9VPM8R
+      WBBqrfhXLtlner7WJHL9JJzbR+jTUnip1HUUjrCwkAVoDxgYbRceKnQLLi70u95q
+      Rd88cQ6x3p0mejIQx7xyo6xJHrMADVj27MW/hZrAY74q+8ziJ+a9X2HLvaWPaHRO
+      HahcyQ+Np1HxAYDP2hZb76sXBzfBeNashK+6OfAKoeko8KuF3pudgNJZZmw9rGjO
+      w/C8+AECgYEA99neD/5YIaIEsX1DDGaeEIUV4AWJvagEyHlF6jzM2A9gDhwcMSTI
+      9pU1R6GCmqncMp1zQk5EiXSNfQgTYqzdMHnYP7QKrxFfjJVnD1tYN3CB28DYfZUv
+      gBftzUkXcJsmuRQcdEJ8J+k+7fz+/M+dlOVU9yiCCYes/uUgA8qSyoECgYEA0oTG
+      Um2i8+2u0ByDPSzot1J7ifvWoL4Xxkz5CxTVc0mGLUr5j14E0CdEiNSSTBufTdwS
+      Teg5MU1rFddogdP1VDJEScmGNqqbVf4yEor4Mxa5+moaHsLbttfnoWOGgNWXKVhi
+      HDlUMsc6YZX2IZ/nEqzPK5wzDqS+6gsAOtS3EtUCgYBbn3Oiz/B+hmlbv6WgmPLH
+      wpsClKmFre4Ouh4paE6FdLGapbOaSzHrTd9DWqZwTGi1YVUxZsOZWLfRR8H60VJ3
+      UCOr8P+eFjsPOk+98pOa8wFeXlzpl9PWc4IaSHHc084tzwxxwf4ptuTnj4YnqQxk
+      9Z5CO/xOT5SZKdR68lDvgQKBgFC0HeNTrHie0bludNFq+fvtXvbS2MDenvaiY4bg
+      AcQkl4+dgnZ3sJirtRZPh5YtsLCEgW/kaqh/6WGCJso+m3ofmxY+b3ldhhc9T6zU
+      IbpUKA/bxQ+t29UIh//Sy6lwOHbdLx9qyuB8h+EJQEY7qrX6EaHCS8B9X8MRXJEx
+      Is3RAoGAPM20hPKfpUg9CgfUQ2hR86Q+yBDyeZFu6Gnis355DzpoYVgkdBlClDzW
+      ObAROaQEa+Gq4W4Xciy7BIDxmNEwx4bg9JOnxHGntIZKnL5cRHlzhjC29cLmd9kZ
+      HE7SL81Mbk46qK4EDOWNuxFHVrR0aGU1Gi9So2PVRb5jBML7kKo=
+      -----END RSA PRIVATE KEY-----
+    publickey: -----BEGIN PUBLIC KEY-----
+      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy9FEge6SeHUix+it8mRa
+      4S2K2J4DjeFt3fbLIkFLMWI0WbrDpLD+Kfb5lBTjG6zCHAWIPTFp8AbNWjoHqsU8
+      X5M57wp9NKqBhGbjEtybgFsucCq7lQBpGp6bdddT1aQpGFoHvAsWAvrmklIIa8ir
+      St36CueTb3eI1BWev06+Mi4Sv3LTRZd6CkCtXl0w1DawtKW5DHRS/t5Vi+52938G
+      FhQ4l5YfjzkMgN7SWvgoExgB3eJJrCq2k1RDZ9LoatIzt54CyLPFPRXFaDruvH1U
+      HgyXjlcuVowe4/ZjkPukfUivBiKj2Lp+fFwEkl9ZmX7IajML4t0wEyu6KCdBdJaP
+      VQIDAQAB
+      -----END PUBLIC KEY-----
