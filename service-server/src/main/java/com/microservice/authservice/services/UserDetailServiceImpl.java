@@ -1,9 +1,9 @@
-package com.microservice.serviceserver.services;
-
-import com.microservice.serviceserver.repository.UserDetailRepository;
-import com.microservice.serviceserver.models.UserPrincipal;
-import com.microservice.serviceserver.models.User;
+package com.microservice.authservice.services;
+import com.microservice.authservice.models.UserEntity;
+import com.microservice.authservice.models.UserPrincipal;
+import com.microservice.authservice.repository.UserDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,11 +27,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
    @Override
    @Transactional
    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-      Optional<User> optionalUser = userDetailRepository.findByUsername(username);
+      Optional<UserEntity> optionalUser = userDetailRepository.findByUsername(username);
 
       optionalUser.orElseThrow(() -> new UsernameNotFoundException("Username or password wrong"));
 
-      return UserPrincipal.create(optionalUser.get());
+      UserDetails userDetails = new UserPrincipal(optionalUser.get());
+      new AccountStatusUserDetailsChecker().check(userDetails);
+
+      return userDetails;
    }
 }

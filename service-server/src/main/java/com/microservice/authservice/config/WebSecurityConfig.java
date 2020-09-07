@@ -1,8 +1,7 @@
-package com.microservice.serviceserver.config;
+package com.microservice.authservice.config;
 
-import com.microservice.serviceserver.services.UserDetailServiceImpl;
+import com.microservice.authservice.services.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
    @Autowired
-   @Qualifier("userDetailsService")
    private UserDetailServiceImpl userDetailsService;
 
    @Override

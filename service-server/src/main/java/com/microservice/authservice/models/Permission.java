@@ -1,4 +1,4 @@
-package com.microservice.serviceserver.models;
+package com.microservice.authservice.models;
 
 
 import javax.persistence.*;

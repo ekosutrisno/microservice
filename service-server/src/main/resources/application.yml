@@ -37,7 +37,7 @@ spring:
 
 config:
   oauth2:
-    usejdbcstoretoken: false
+    usejdbcstoretoken: true
     usejwttokenconverter: true
     privatekey: -----BEGIN RSA PRIVATE KEY-----
       MIIEogIBAAKCAQEAy9FEge6SeHUix+it8mRa4S2K2J4DjeFt3fbLIkFLMWI0WbrD

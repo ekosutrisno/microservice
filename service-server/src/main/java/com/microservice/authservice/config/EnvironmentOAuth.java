@@ -1,4 +1,4 @@
-package com.microservice.serviceserver.config;
+package com.microservice.authservice.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

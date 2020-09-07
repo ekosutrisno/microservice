@@ -1,4 +1,4 @@
-package com.microservice.serviceserver.models;
+package com.microservice.authservice.models;
 
 
 import javax.persistence.*;
@@ -10,8 +10,8 @@ import java.util.List;
  * @Create 22/08/2020 23:51
  */
 @Entity
-@Table(name = User.TABLE_NAME)
-public class User implements Serializable {
+@Table(name = UserEntity.TABLE_NAME)
+public class UserEntity implements Serializable  {
    static final String TABLE_NAME = "tbl_user";
 
    @Id
@@ -39,19 +39,19 @@ public class User implements Serializable {
                    @JoinColumn(name = "role_id", referencedColumnName = "id")})
    private List<Role> roles;
 
-   public User() {
+   public UserEntity() {
    }
 
-   public User(Long id, String username, String password, String email, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, List<Role> roles) {
-      this.id = id;
-      this.username = username;
-      this.password = password;
-      this.email = email;
-      this.enabled = enabled;
-      this.accountNonExpired = accountNonExpired;
-      this.credentialsNonExpired = credentialsNonExpired;
-      this.accountNonLocked = accountNonLocked;
-      this.roles = roles;
+   public UserEntity(UserEntity user) {
+      this.id= user.getId();
+      this.username = user.getUsername();
+      this.password = user.getPassword();
+      this.email = user.getEmail();
+      this.enabled = user.isEnabled();
+      this.accountNonExpired = user.isAccountNonExpired();
+      this.credentialsNonExpired = user.isCredentialsNonExpired();
+      this.accountNonLocked = user.isAccountNonLocked();
+      this.roles = user.getRoles();
    }
 
    public Long getId() {
