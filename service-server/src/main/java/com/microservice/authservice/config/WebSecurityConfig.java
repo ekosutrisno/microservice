@@ -1,5 +1,7 @@
-package com.microservice.serviceserver.config;
+package com.microservice.authservice.config;
 
+import com.microservice.authservice.services.UserDetailServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +19,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+   @Autowired
+   private UserDetailServiceImpl userDetailsService;
+
    @Override
    @Bean
    public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -25,10 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
    @Override
    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-      auth.inMemoryAuthentication()
-              .withUser("Eko Sutrisno")
-              .password(passwordEncoder().encode("password"))
-              .roles("USER");
+      auth.userDetailsService(userDetailsService)
+              .passwordEncoder(passwordEncoder());
    }
 
    @Bean

@@ -1,4 +1,4 @@
-package com.microservice.serviceserver;
+package com.microservice.authservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,14 +13,15 @@ import java.security.Principal;
 @EnableResourceServer
 @EnableDiscoveryClient
 @RestController
-public class ServiceServerApplication {
+public class AuthServiceApplication {
+
    @RequestMapping("/user")
    public Principal user(Principal principal) {
       return principal;
    }
 
    public static void main(String[] args) {
-      SpringApplication.run(ServiceServerApplication.class, args);
+      SpringApplication.run(AuthServiceApplication.class, args);
    }
 
 }

@@ -1,10 +1,10 @@
-spring:
-  application:
-    name: APP-SERVICE-AUTH
-  profiles:
-    active: dev
-  cloud:
-    discovery:
-      enabled: true
-    config:
-      uri: http://localhost:9090/app-service-config
+#spring:
+#  application:
+#    name: APP-SERVICES-AUTH
+#  profiles:
+#    active: dev
+#  cloud:
+#    discovery:
+#      enabled: true
+#    config:
+#      uri: http://localhost:9090/app-service-config

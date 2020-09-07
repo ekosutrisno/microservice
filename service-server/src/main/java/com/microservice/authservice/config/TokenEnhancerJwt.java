@@ -1,6 +1,6 @@
-package com.microservice.serviceserver.config;
+package com.microservice.authservice.config;
 
-import org.springframework.security.core.userdetails.User;
+import com.microservice.authservice.models.UserEntity;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -17,10 +17,12 @@ import java.util.Map;
 public class TokenEnhancerJwt extends JwtAccessTokenConverter {
    @Override
    public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-      User user = (User) authentication.getPrincipal();
+      UserEntity user = (UserEntity) authentication.getPrincipal();
       Map<String, Object> info = new LinkedHashMap<>(accessToken.getAdditionalInformation());
       if (user.getUsername() != null)
          info.put("username", user.getUsername());
+      if (user.getEmail() != null)
+         info.put("email", user.getEmail());
 
       DefaultOAuth2AccessToken oAuth2AccessToken = new DefaultOAuth2AccessToken(accessToken);
       oAuth2AccessToken.setAdditionalInformation(info);
