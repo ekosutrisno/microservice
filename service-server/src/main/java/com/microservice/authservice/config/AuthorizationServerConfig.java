@@ -36,12 +36,22 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
    @Autowired
    private EnvironmentOAuth env;
 
+   /***
+    * This for handling Security Acces
+    * @param security is object AuthorizationServerSecurityConfigurer
+    * @throws Exception for handling Exception
+    */
    @Override
    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
       security.tokenKeyAccess("permitAll()")
               .checkTokenAccess("isAuthenticated()");
    }
 
+   /***
+    * Handiling Client in OAuth2
+    * @param clients as ClientDetail
+    * @throws Exception To handle Exception
+    */
    @Override
    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
       clients.jdbc(dataSource)
@@ -49,6 +59,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
               .dataSource(dataSource);
    }
 
+   /***
+    * To Handle endponit Server include AuthenticationManagaer adn tokenStore
+    * @param endpoints as AuthorizationServerEndpointsConfigurer
+    * @throws Exception Handle Exception
+    */
    @Override
    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
       endpoints.authenticationManager(authenticationManager)
@@ -58,6 +73,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
          endpoints.accessTokenConverter(tokenEnhance());
    }
 
+   /***
+    * Token Store Bean to handlind Option token Store to Use
+    * @return TokenStore
+    */
    @Bean
    public TokenStore tokenStore() {
       if (env.getUsejdbcstoretoken())
@@ -69,6 +88,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
       return new InMemoryTokenStore();
    }
 
+   /***
+    * To Handle token Enhance and handling JWT as Token
+    * @return accessTokenConverter
+    */
    @Bean
    public JwtAccessTokenConverter tokenEnhance() {
       JwtAccessTokenConverter accessTokenConverter = new TokenEnhancerJwt();
