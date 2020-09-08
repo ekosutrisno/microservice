@@ -15,6 +15,11 @@ import java.security.Principal;
 @RestController
 public class AuthServiceApplication {
 
+   /***
+    * Endpoint to handle User Principal
+    * @param principal as Principal
+    * @return Principal
+    */
    @RequestMapping("/user")
    public Principal user(Principal principal) {
       return principal;
