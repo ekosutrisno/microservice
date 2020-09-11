@@ -1,0 +1,22 @@
+server:
+  port: 8765
+spring:
+  application:
+    name: APP-SERVICES-EMAIL
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: xsisappv2.0@gmail.com
+    password: aku12345678
+    port: 587
+    protocol: smtp
+    test-connection: false
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
