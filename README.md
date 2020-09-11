@@ -8,3 +8,4 @@
  - Auth Service : service-server
  - Config Server : config-server
  - Api Gateway : zuul-api-gateway
+ - Email Service : email-service
