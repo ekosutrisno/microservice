@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @Author Eko Sutrisno
@@ -33,8 +31,8 @@ public class SendingMessage {
    @Autowired
    private PasswordEncoder passwordEncoder;
 
-   @PostMapping("/sendCode")
-   public ResponseEntity<?> sendingEmail(@RequestBody EmailRequest emailRequestPayload) throws MessagingException {
+   @PostMapping("/sendCodeVerification")
+   public ResponseEntity<?> sendingCodeVerification(@RequestBody EmailRequest emailRequestPayload) throws MessagingException {
       Mail email = new Mail();
 
       email.setFrom(emailRequestPayload.getFrom());
@@ -43,14 +41,40 @@ public class SendingMessage {
 
       Map<String, Object> payload = new HashMap<>();
       String token = RandomUtil.generateRandomStringNumber(6).toUpperCase();
-      String username = "UserName Client";
+      String username = "Eko Sutrisno";
 
       payload.put("token", token);
       payload.put("username", username);
       email.setModel(payload);
 
-      //Sending email
-      mailService.sendEmail(email);
+      //Sending Info And News
+      mailService.sendingCodeVerification(email);
+
+      //Generate Response
+      Map<String, Object> response = new HashMap<>();
+      response.put("ResponseSuccess", email);
+
+      return new ResponseEntity<>(response, HttpStatus.OK);
+   }
+
+   @PostMapping("/sendInfoAndNews")
+   public ResponseEntity<?> sendEmailInfoAndNews(@RequestBody EmailRequest emailRequestPayload) throws MessagingException {
+      Mail email = new Mail();
+
+      email.setFrom(emailRequestPayload.getFrom());
+      email.setTo(emailRequestPayload.getTo());
+      email.setSubject(emailRequestPayload.getSubject());
+
+      Map<String, Object> payload = new HashMap<>();
+      String token = RandomUtil.generateRandomStringNumber(6).toUpperCase();
+      String username = "Eko Sutrisno";
+
+      payload.put("token", token);
+      payload.put("username", username);
+      email.setModel(payload);
+
+      //Sending Info And News
+      mailService.sendEmailInfoAndNews(email);
 
       //Generate Response
       Map<String, Object> response = new HashMap<>();
@@ -67,6 +91,35 @@ public class SendingMessage {
       email.setTo(emailRequest.getTo());
       email.setSubject(emailRequest.getSubject());
 
+      List<Object> dataRequest = Arrays.asList(
+              request.getAuthType(),
+              request.getContextPath(),
+              request.getCookies(),
+              request.getHeader("Content-Type"),
+              request.getHttpServletMapping(),
+              request.getMethod(),
+              request.getPathTranslated(),
+              request.getPathInfo(),
+              request.getQueryString(),
+              request.getRemoteUser(),
+              request.getRemoteAddr(),
+              request.getRemotePort(),
+              request.getRequestedSessionId(),
+              request.getRequestURI(),
+              request.getRequestURL(),
+              request.getUserPrincipal(),
+              request.getLocalAddr(),
+              request.getLocalName(),
+              request.getLocalPort(),
+              request.getServerName(),
+              request.getServerPort(),
+              request.getScheme(),
+              request.getProtocol(),
+              request.getParameterMap(),
+              request.getContentType()
+      );
+
+
       Map<String, Object> payload = new HashMap<>();
       String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
       UUID token = UUID.randomUUID();
@@ -76,11 +129,13 @@ public class SendingMessage {
       payload.put("resetUrl", url + "/reset-password?token=" + passwordEncoder.encode(token.toString()));
 
       email.setModel(payload);
-      mailService.sendEmailForgotPassword(email);
+      //Sending email
+      //mailService.sendEmailForgotPassword(email);
 
       //Generate Response
       Map<String, Object> response = new HashMap<>();
       response.put("ResponseSuccess", email);
+      response.put("dataRequest", request);
 
       return new ResponseEntity<>(response, HttpStatus.OK);
    }
