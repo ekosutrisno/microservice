@@ -12,6 +12,8 @@ import javax.mail.MessagingException;
 import javax.mail.SendFailedException;
 import javax.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * MailService
@@ -19,51 +21,79 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class MailService {
 
-  Logger logger = LoggerFactory.getLogger(MailService.class);
+   Logger logger = LoggerFactory.getLogger(MailService.class);
 
-  @Autowired
-  private JavaMailSender emailSender;
+   @Autowired
+   private JavaMailSender emailSender;
 
-  @Autowired
-  private org.thymeleaf.spring5.SpringTemplateEngine templateEngine;
+   @Autowired
+   private org.thymeleaf.spring5.SpringTemplateEngine templateEngine;
 
-  public void sendEmail(Mail mail) throws MessagingException {
+   public void sendingCodeVerification(Mail mail) throws MessagingException {
 
-    MimeMessage message = emailSender.createMimeMessage();
+      MimeMessage message = emailSender.createMimeMessage();
 
-    MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-        StandardCharsets.UTF_8.name());
+      MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+              StandardCharsets.UTF_8.name());
 
-    Context context = new Context();
-    context.setVariables(mail.getModel());
-    String html = templateEngine.process("email/verify-code", context);
+      Context context = new Context();
+      context.setVariables(mail.getModel());
+      String html = templateEngine.process("email/verify-code", context);
 
-    helper.setTo(mail.getTo());
-    helper.setText(html, true);
-    helper.setSubject(mail.getSubject());
-    helper.setFrom(mail.getFrom());
+      helper.setTo(mail.getTo());
+      helper.setText(html, true);
+      helper.setSubject(mail.getSubject());
+      helper.setFrom(mail.getFrom());
 
-    emailSender.send(message);
-    logger.info("Email berhasil dikirim");
-  }
+      emailSender.send(message);
+      logger.info("Email berhasil dikirim");
+   }
 
-  public void sendEmailForgotPassword(Mail mail) throws MessagingException, SendFailedException {
-    MimeMessage message = emailSender.createMimeMessage();
+   public void sendEmailForgotPassword(Mail mail) throws MessagingException, SendFailedException {
+      MimeMessage message = emailSender.createMimeMessage();
 
-    MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-        StandardCharsets.UTF_8.name());
+      MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+              StandardCharsets.UTF_8.name());
 
-    Context context = new Context();
-    context.setVariables(mail.getModel());
-    String html = templateEngine.process("email/verify-password", context);
+      Context context = new Context();
+      context.setVariables(mail.getModel());
+      String html = templateEngine.process("email/verify-password", context);
 
-    helper.setTo(mail.getTo());
-    helper.setText(html, true);
-    helper.setSubject(mail.getSubject());
-    helper.setFrom(mail.getFrom());
+      helper.setTo(mail.getTo());
+      helper.setText(html, true);
+      helper.setSubject(mail.getSubject());
+      helper.setFrom(mail.getFrom());
 
-    emailSender.send(message);
-    logger.info("Email berhasil dikirim");
+      emailSender.send(message);
+      logger.info("Email berhasil dikirim");
+   }
 
-  }
+   public void sendEmailInfoAndNews(Mail mail) throws MessagingException {
+
+      MimeMessage message = emailSender.createMimeMessage();
+
+      MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+              StandardCharsets.UTF_8.name());
+
+      Context context = new Context();
+      context.setVariables(mail.getModel());
+      String html = templateEngine.process("email/verify-code-new", context);
+
+      List<String> alamatTo = new ArrayList<>();
+      for (String to : mail.getTo().split(",")) {
+         alamatTo.add(to);
+      }
+      alamatTo.stream().forEach(sendAllEmail -> {
+         try {
+            helper.setTo(sendAllEmail.replace("\\s", ""));
+            helper.setText(html, true);
+            helper.setSubject(mail.getSubject());
+            helper.setFrom(mail.getFrom());
+            emailSender.send(message);
+            logger.info("Email sent to " + sendAllEmail + " success");
+         } catch (MessagingException m) {
+            logger.info(m.getMessage());
+         }
+      });
+   }
 }
