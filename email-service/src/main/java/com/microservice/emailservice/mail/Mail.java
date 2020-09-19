@@ -1,11 +1,12 @@
 package com.microservice.emailservice.mail;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
  * Mail
  */
-public class Mail {
+public class Mail implements Serializable {
 
   private String from;
   private String to;

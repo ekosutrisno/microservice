@@ -91,35 +91,6 @@ public class SendingMessage {
       email.setTo(emailRequest.getTo());
       email.setSubject(emailRequest.getSubject());
 
-      List<Object> dataRequest = Arrays.asList(
-              request.getAuthType(),
-              request.getContextPath(),
-              request.getCookies(),
-              request.getHeader("Content-Type"),
-              request.getHttpServletMapping(),
-              request.getMethod(),
-              request.getPathTranslated(),
-              request.getPathInfo(),
-              request.getQueryString(),
-              request.getRemoteUser(),
-              request.getRemoteAddr(),
-              request.getRemotePort(),
-              request.getRequestedSessionId(),
-              request.getRequestURI(),
-              request.getRequestURL(),
-              request.getUserPrincipal(),
-              request.getLocalAddr(),
-              request.getLocalName(),
-              request.getLocalPort(),
-              request.getServerName(),
-              request.getServerPort(),
-              request.getScheme(),
-              request.getProtocol(),
-              request.getParameterMap(),
-              request.getContentType()
-      );
-
-
       Map<String, Object> payload = new HashMap<>();
       String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
       UUID token = UUID.randomUUID();
@@ -130,12 +101,11 @@ public class SendingMessage {
 
       email.setModel(payload);
       //Sending email
-      //mailService.sendEmailForgotPassword(email);
+      mailService.sendEmailForgotPassword(email);
 
       //Generate Response
       Map<String, Object> response = new HashMap<>();
       response.put("ResponseSuccess", email);
-      response.put("dataRequest", request);
 
       return new ResponseEntity<>(response, HttpStatus.OK);
    }

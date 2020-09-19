@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.context.Context;
 
@@ -29,6 +30,7 @@ public class MailService {
    @Autowired
    private org.thymeleaf.spring5.SpringTemplateEngine templateEngine;
 
+   @Async("threadPoolTaskExecutor")
    public void sendingCodeVerification(Mail mail) throws MessagingException {
 
       MimeMessage message = emailSender.createMimeMessage();
@@ -49,6 +51,7 @@ public class MailService {
       logger.info("Email berhasil dikirim");
    }
 
+   @Async("threadPoolTaskExecutor")
    public void sendEmailForgotPassword(Mail mail) throws MessagingException, SendFailedException {
       MimeMessage message = emailSender.createMimeMessage();
 
@@ -68,6 +71,7 @@ public class MailService {
       logger.info("Email berhasil dikirim");
    }
 
+   @Async("threadPoolTaskExecutor")
    public void sendEmailInfoAndNews(Mail mail) throws MessagingException {
 
       MimeMessage message = emailSender.createMimeMessage();
