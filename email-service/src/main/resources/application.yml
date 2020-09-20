@@ -1,8 +1,4 @@
-server:
-  port: 8765
 spring:
-  application:
-    name: APP-SERVICES-EMAIL
   mail:
     default-encoding: UTF-8
     host: smtp.gmail.com
@@ -20,3 +16,6 @@ spring:
             required: true
           connectiontimeout: 5000
           timeout: 5000
+
+
+

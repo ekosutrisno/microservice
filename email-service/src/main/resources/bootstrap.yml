@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: APP-SERVICES-EMAIL
+server:
+  port: 8765
+eureka:
+  instance:
+    instance-id: ${spring.application.name}-${random.int(4,10000)}
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 2
+    status-page-url-path: /swagger-ui.html
+    health-check-url-path: /actuator
+    prefer-ip-address: true
+    hostname: localhost
+    ip-address: localhost
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8089/eureka
