@@ -81,7 +81,7 @@ public class MailService {
 
       Context context = new Context();
       context.setVariables(mail.getModel());
-      String html = templateEngine.process("email/verify-code-new", context);
+      String html = templateEngine.process("email/verify-code", context);
 
       List<String> alamatTo = new ArrayList<>();
       for (String to : mail.getTo().split(",")) {

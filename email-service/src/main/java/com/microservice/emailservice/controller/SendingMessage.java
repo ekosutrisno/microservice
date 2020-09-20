@@ -4,6 +4,8 @@ import com.microservice.emailservice.mail.Mail;
 import com.microservice.emailservice.mail.MailService;
 import com.microservice.emailservice.model.EmailRequest;
 import com.microservice.emailservice.util.RandomUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ import java.util.*;
 @RestController
 @CrossOrigin("*")
 @RequestMapping(value = "/message", produces = "application/json")
+@Api(produces = "application/json", tags = "Email", description = "Handling Info dan Messaging")
 public class SendingMessage {
 
    @Autowired
@@ -32,12 +35,13 @@ public class SendingMessage {
    private PasswordEncoder passwordEncoder;
 
    @PostMapping("/sendCodeVerification")
-   public ResponseEntity<?> sendingCodeVerification(@RequestBody EmailRequest emailRequestPayload) throws MessagingException {
+   @ApiOperation(value = "Code Verification", tags = {"Email"})
+   public ResponseEntity<?> sendingCodeVerification(@RequestBody EmailRequest emailRequest) throws MessagingException {
       Mail email = new Mail();
 
-      email.setFrom(emailRequestPayload.getFrom());
-      email.setTo(emailRequestPayload.getTo());
-      email.setSubject(emailRequestPayload.getSubject());
+      email.setFrom(emailRequest.getFrom());
+      email.setTo(emailRequest.getTo());
+      email.setSubject(emailRequest.getSubject());
 
       Map<String, Object> payload = new HashMap<>();
       String token = RandomUtil.generateRandomStringNumber(6).toUpperCase();
@@ -58,12 +62,13 @@ public class SendingMessage {
    }
 
    @PostMapping("/sendInfoAndNews")
-   public ResponseEntity<?> sendEmailInfoAndNews(@RequestBody EmailRequest emailRequestPayload) throws MessagingException {
+   @ApiOperation(value = "Info and News", tags = {"Email"})
+   public ResponseEntity<?> sendEmailInfoAndNews(@RequestBody EmailRequest emailRequest) throws MessagingException {
       Mail email = new Mail();
 
-      email.setFrom(emailRequestPayload.getFrom());
-      email.setTo(emailRequestPayload.getTo());
-      email.setSubject(emailRequestPayload.getSubject());
+      email.setFrom(emailRequest.getFrom());
+      email.setTo(emailRequest.getTo());
+      email.setSubject(emailRequest.getSubject());
 
       Map<String, Object> payload = new HashMap<>();
       String token = RandomUtil.generateRandomStringNumber(6).toUpperCase();
@@ -84,6 +89,7 @@ public class SendingMessage {
    }
 
    @PostMapping("/forgotPassword")
+   @ApiOperation(value = "Reset Password", tags = {"Email"})
    public ResponseEntity<?> forgotPassword(@RequestBody EmailRequest emailRequest, HttpServletRequest request) throws MessagingException {
       Mail email = new Mail();
 
