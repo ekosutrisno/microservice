@@ -1,5 +1,7 @@
 package com.microservice.emailservice.model;
 
+import java.io.Serializable;
+
 /**
  * @Author Eko Sutrisno
  * @Email ekosutrisno801@gmail.com
@@ -7,7 +9,7 @@ package com.microservice.emailservice.model;
  * @Gitlab https://gitlab.com/ekosutrisno1
  * @Create 11/09/2020 16:29
  */
-public class EmailRequest {
+public class EmailRequest implements Serializable {
    private String from;
    private String to;
    private String subject;
