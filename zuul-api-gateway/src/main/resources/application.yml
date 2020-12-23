@@ -1,0 +1,78 @@
+#Server Config
+server:
+  port: 9090
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:8081/user
+      id: service-gateway
+
+#Spring Config
+spring:
+  application:
+    name: APP-SERVICES-GATEWAY
+
+#Zull Config
+zuul:
+  routes:
+    app-service-auth:
+      path: /app-service-auth/**
+      serviceId: APP-SERVICES-AUTH
+    app-service-config:
+      path: /app-service-config/**
+      serviceId: APP-SERVICES-CONFIG
+    app-service-email:
+      path: /app-service-email/**
+      serviceId: APP-SERVICE-EMAIL
+
+#Ribbon Config
+ribbon:
+  eureka:
+    enabled: false
+
+#------START Ribbon Service Instance
+APP-SERVICES-AUTH:
+  ribbon:
+    listOfServers: http://localhost:8081
+    ConnectTimeout: 1000
+    ReadTimeout: 3000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+APP-SERVICES-CONFIG:
+  ribbon:
+    listOfServers: http://localhost:8088
+    ConnectTimeout: 1000
+    ReadTimeout: 3000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+APP-SERVICE-EMAIL:
+  ribbon:
+    listOfServers: http://localhost:8765
+    ConnectTimeout: 1000
+    ReadTimeout: 3000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+#------END Ribbon Service Instance
+
+#Ureka config
+eureka:
+  instance:
+    instance-id: APP-SERVICES-GATEWAY
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 2
+    prefer-ip-address: true
+    secure-port: ${server.port}
+    status-page-url: http://${eureka.instance.hostname}:${server.port}/actuator
+    virtual-host-name: service-zuul-gateway
+    hostname: localhost
+    ip-address: localhost
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    heartbeat-executor-thread-pool-size: 5
+    eureka-service-url-poll-interval-seconds: 10
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/

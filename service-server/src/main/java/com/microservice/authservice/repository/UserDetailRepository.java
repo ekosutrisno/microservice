@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 /**
- * @Author Eko Sutrisno
- * @Email ekosutrisno801@gmail.com
- * @Github https://github.com/ekosutrisno
- * @Gitlab https://gitlab.com/ekosutrisno1
- * @Create 06/09/2020 17:48
+ * @author Eko Sutrisno
+ * @email ekosutrisno801@gmail.com
+ * @github https://github.com/ekosutrisno
+ * @gitlab https://gitlab.com/ekosutrisno1
+ * @create 06/09/2020 17:48
  */
 @Repository
 public interface UserDetailRepository extends JpaRepository<UserEntity, Long> {

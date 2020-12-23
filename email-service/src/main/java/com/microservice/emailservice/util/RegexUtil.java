@@ -9,19 +9,38 @@ import java.util.regex.Pattern;
  */
 public class RegexUtil {
 
+  /**
+   * Validate email boolean.
+   *
+   * @param email the email
+   * @return the boolean
+   */
   public static boolean validateEmail(String email) {
 
-    String EMAIL_REGEX = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
+    String EMAIL_REGEX = "^[\\w-+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
     Pattern pattern = Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
     Matcher matcher = pattern.matcher(email);
     return matcher.matches();
   }
 
+  /**
+   * Valid username boolean.
+   *
+   * @param username the username
+   * @return the boolean
+   */
   public static boolean validUsername(String username) {
     String USERNAME_REGEX = "[A-Za-z0-9_]+";
     return username.matches(USERNAME_REGEX);
   }
 
+  /**
+   * Validate password boolean.
+   *
+   * @param password the password
+   * @param maps     the maps
+   * @return the boolean
+   */
   public static boolean validatePassword(String password, Map<String, String> maps) {
     Pattern spesialCharPattern = Pattern.compile("[^a-z0-9]", Pattern.CASE_INSENSITIVE);
     Pattern upperCasePattern = Pattern.compile("[A-Z ]");

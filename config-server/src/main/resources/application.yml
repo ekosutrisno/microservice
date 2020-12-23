@@ -13,10 +13,7 @@ spring:
           skip-ssl-validation: true
           timeout: 5
 
-          #username:
-          #password:
-
-#Ureka config
+#Eureka config
 eureka:
   instance:
     instance-id: APP-SERVICES-CONFIG
@@ -25,14 +22,16 @@ eureka:
     prefer-ip-address: true
     secure-port: ${server.port}
     status-page-url: http://${eureka.instance.hostname}:${server.port}/actuator
-    virtual-host-name: service-zuul-gateway
+    virtual-host-name: app-services-config
     hostname: localhost
     ip-address: localhost
   client:
     fetch-registry: true
     register-with-eureka: true
+    heartbeat-executor-thread-pool-size: 5
+    eureka-service-url-poll-interval-seconds: 10
     healthcheck:
       enabled: true
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:8089/eureka/
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
 

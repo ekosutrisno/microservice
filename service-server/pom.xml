@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.microservice</groupId>
-    <artifactId>service-server</artifactId>
+    <artifactId>app-service-auth</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>service-server</name>
+    <name>app-service-auth</name>
     <description>Testing Penggunaan Spring Cloud</description>
 
     <properties>
@@ -50,10 +50,6 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -79,6 +75,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>app-service-auth</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

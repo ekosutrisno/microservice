@@ -13,8 +13,13 @@ public class RandomUtil {
   private static final String NUMBER = "0123456789";
 
   private static final String DATA_FOR_RANDOM_STRING = CHAR_LOWER + CHAR_UPPER + NUMBER;
-  private static SecureRandom random = new SecureRandom();
+  private static final SecureRandom random = new SecureRandom();
 
+  /**
+   * Generate random string string.
+   *
+   * @return the string
+   */
   public static String generateRandomString() {
 
     int batasAwal = 97; // dimulai dari hurup 'a'
@@ -23,7 +28,7 @@ public class RandomUtil {
 
     Random random = new Random();
 
-    StringBuffer buffer = new StringBuffer(targetPanjangString);
+    StringBuilder buffer = new StringBuilder(targetPanjangString);
 
     for (int index = 0; index < targetPanjangString; index++) {
       int randomLimitedInt = batasAwal + (int) (random.nextFloat() * (batasAkhir - batasAwal + 1));
@@ -34,11 +39,17 @@ public class RandomUtil {
     return generetedString.toUpperCase();
   }
 
+  /**
+   * Generate random string number string.
+   *
+   * @param panjang the panjang
+   * @return the string
+   */
   public static String generateRandomStringNumber(int panjang) {
     if (panjang < 1)
       throw new IllegalArgumentException();
 
-    StringBuffer angkaString = new StringBuffer(panjang);
+    StringBuilder angkaString = new StringBuilder(panjang);
     for (int i = 0; i < panjang; i++) {
       // 0-62 (bersifat langsung), random mengembalikan 0-61
       int randomCharAt = random.nextInt(DATA_FOR_RANDOM_STRING.length());

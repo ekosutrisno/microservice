@@ -14,6 +14,7 @@ import javax.mail.SendFailedException;
 import javax.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,6 +23,9 @@ import java.util.List;
 @Component
 public class MailService {
 
+   /**
+    * The Logger.
+    */
    Logger logger = LoggerFactory.getLogger(MailService.class);
 
    @Autowired
@@ -30,6 +34,12 @@ public class MailService {
    @Autowired
    private org.thymeleaf.spring5.SpringTemplateEngine templateEngine;
 
+   /**
+    * Sending code verification.
+    *
+    * @param mail the mail
+    * @throws MessagingException the messaging exception
+    */
    @Async("threadPoolTaskExecutor")
    public void sendingCodeVerification(Mail mail) throws MessagingException {
 
@@ -51,6 +61,13 @@ public class MailService {
       logger.info("Email berhasil dikirim");
    }
 
+   /**
+    * Send email forgot password.
+    *
+    * @param mail the mail
+    * @throws MessagingException  the messaging exception
+    * @throws SendFailedException the send failed exception
+    */
    @Async("threadPoolTaskExecutor")
    public void sendEmailForgotPassword(Mail mail) throws MessagingException, SendFailedException {
       MimeMessage message = emailSender.createMimeMessage();
@@ -71,6 +88,12 @@ public class MailService {
       logger.info("Email berhasil dikirim");
    }
 
+   /**
+    * Send email info and news.
+    *
+    * @param mail the mail
+    * @throws MessagingException the messaging exception
+    */
    @Async("threadPoolTaskExecutor")
    public void sendEmailInfoAndNews(Mail mail) throws MessagingException {
 
@@ -84,10 +107,8 @@ public class MailService {
       String html = templateEngine.process("email/verify-code", context);
 
       List<String> alamatTo = new ArrayList<>();
-      for (String to : mail.getTo().split(",")) {
-         alamatTo.add(to);
-      }
-      alamatTo.stream().forEach(sendAllEmail -> {
+      Collections.addAll(alamatTo, mail.getTo().split(","));
+      alamatTo.forEach(sendAllEmail -> {
          try {
             helper.setTo(sendAllEmail.replace("\\s", ""));
             helper.setText(html, true);

@@ -17,11 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
+ * The type Sending message.
+ *
  * @Author Eko Sutrisno
- * @Email ekosutrisno801@gmail.com
- * @Github https://github.com/ekosutrisno
- * @Gitlab https://gitlab.com/ekosutrisno1
- * @Create 11/09/2020 16:27
+ * @Email ekosutrisno801 @gmail.com
+ * @Github https ://github.com/ekosutrisno
+ * @Gitlab https ://gitlab.com/ekosutrisno1
+ * @Create 11 /09/2020 16:27
  */
 @RestController
 @CrossOrigin("*")
@@ -34,6 +36,13 @@ public class SendingMessage {
    @Autowired
    private PasswordEncoder passwordEncoder;
 
+   /**
+    * Sending code verification response entity.
+    *
+    * @param emailRequest the email request
+    * @return the response entity
+    * @throws MessagingException the messaging exception
+    */
    @PostMapping("/sendCodeVerification")
    @ApiOperation(value = "Code Verification", tags = {"Email"})
    public ResponseEntity<?> sendingCodeVerification(@RequestBody EmailRequest emailRequest) throws MessagingException {
@@ -61,6 +70,13 @@ public class SendingMessage {
       return new ResponseEntity<>(response, HttpStatus.OK);
    }
 
+   /**
+    * Send email info and news response entity.
+    *
+    * @param emailRequest the email request
+    * @return the response entity
+    * @throws MessagingException the messaging exception
+    */
    @PostMapping("/sendInfoAndNews")
    @ApiOperation(value = "Info and News", tags = {"Email"})
    public ResponseEntity<?> sendEmailInfoAndNews(@RequestBody EmailRequest emailRequest) throws MessagingException {
@@ -88,6 +104,14 @@ public class SendingMessage {
       return new ResponseEntity<>(response, HttpStatus.OK);
    }
 
+   /**
+    * Forgot password response entity.
+    *
+    * @param emailRequest the email request
+    * @param request      the request
+    * @return the response entity
+    * @throws MessagingException the messaging exception
+    */
    @PostMapping("/forgotPassword")
    @ApiOperation(value = "Reset Password", tags = {"Email"})
    public ResponseEntity<?> forgotPassword(@RequestBody EmailRequest emailRequest, HttpServletRequest request) throws MessagingException {
