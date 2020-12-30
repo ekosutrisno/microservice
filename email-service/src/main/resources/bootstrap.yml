@@ -5,7 +5,7 @@ server:
   port: 8765
 eureka:
   instance:
-    instance-id: ${spring.application.name}-${random.int(4,10000)}
+    instance-id: ${spring.application.name}-${random.int(2,100)}
     lease-renewal-interval-in-seconds: 10
     lease-expiration-duration-in-seconds: 2
     status-page-url-path: /swagger-ui.html
@@ -19,4 +19,4 @@ eureka:
     healthcheck:
       enabled: true
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:8761/eureka
+      defaultZone: ${EUREKA_DEFAULT_ZONE:http://${eureka.instance.hostname}:8761/eureka/}

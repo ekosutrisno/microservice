@@ -14,22 +14,16 @@ import java.util.Collections;
 
 /**
  * The type Swagger config.
- *
- * @Author Eko Sutrisno
- * @Email ekosutrisno801 @gmail.com
- * @Github https ://github.com/ekosutrisno
- * @Gitlab https ://gitlab.com/ekosutrisno1
- * @Create 20 /09/2020 13:25
  */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-   /**
-    * Swagger configuration docket.
-    *
-    * @return the docket
-    */
-   @Bean
+    /**
+     * Swagger configuration docket.
+     *
+     * @return the docket
+     */
+    @Bean
    public Docket swaggerConfiguration() {
       return new Docket(DocumentationType.SWAGGER_2).select()
               .paths(PathSelectors.any())

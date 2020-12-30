@@ -3,6 +3,7 @@ package com.microservice.emailservice.controller;
 import com.microservice.emailservice.mail.Mail;
 import com.microservice.emailservice.mail.MailService;
 import com.microservice.emailservice.model.EmailRequest;
+import com.microservice.emailservice.model.EmailRequestForgotPassword;
 import com.microservice.emailservice.util.RandomUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,12 +19,6 @@ import java.util.*;
 
 /**
  * The type Sending message.
- *
- * @Author Eko Sutrisno
- * @Email ekosutrisno801 @gmail.com
- * @Github https ://github.com/ekosutrisno
- * @Gitlab https ://gitlab.com/ekosutrisno1
- * @Create 11 /09/2020 16:27
  */
 @RestController
 @CrossOrigin("*")
@@ -31,112 +26,110 @@ import java.util.*;
 @Api(produces = "application/json", tags = "Email", description = "Handling Info dan Messaging")
 public class SendingMessage {
 
-   @Autowired
-   private MailService mailService;
-   @Autowired
-   private PasswordEncoder passwordEncoder;
+    private static final String EMAIL_FROM = "mtodo.support@exoapp.com";
 
-   /**
-    * Sending code verification response entity.
-    *
-    * @param emailRequest the email request
-    * @return the response entity
-    * @throws MessagingException the messaging exception
-    */
-   @PostMapping("/sendCodeVerification")
-   @ApiOperation(value = "Code Verification", tags = {"Email"})
-   public ResponseEntity<?> sendingCodeVerification(@RequestBody EmailRequest emailRequest) throws MessagingException {
-      Mail email = new Mail();
+    @Autowired
+    private MailService mailService;
 
-      email.setFrom(emailRequest.getFrom());
-      email.setTo(emailRequest.getTo());
-      email.setSubject(emailRequest.getSubject());
+    /**
+     * Sending code verification response entity.
+     *
+     * @param emailRequest the email request
+     * @return the response entity
+     * @throws MessagingException the messaging exception
+     */
+    @PostMapping("/verification")
+    @ApiOperation(value = "Code Verification", tags = {"Email"})
+    public ResponseEntity<?> sendingCodeVerification(@RequestBody EmailRequest emailRequest) throws MessagingException {
+        Mail email = new Mail();
 
-      Map<String, Object> payload = new HashMap<>();
-      String token = RandomUtil.generateRandomStringNumber(6).toUpperCase();
-      String username = "Eko Sutrisno";
+        email.setFrom(EMAIL_FROM);
+        email.setTo(emailRequest.getTo());
+        email.setSubject(emailRequest.getSubject());
 
-      payload.put("token", token);
-      payload.put("username", username);
-      email.setModel(payload);
+        Map<String, Object> payload = new HashMap<>();
+        String token = emailRequest.getToken();
+        String username = emailRequest.getUsername();
 
-      //Sending Info And News
-      mailService.sendingCodeVerification(email);
+        payload.put("token", token);
+        payload.put("username", username);
+        email.setModel(payload);
 
-      //Generate Response
-      Map<String, Object> response = new HashMap<>();
-      response.put("ResponseSuccess", email);
+        //Sending Info And News
+        mailService.sendingCodeVerification(email);
 
-      return new ResponseEntity<>(response, HttpStatus.OK);
-   }
+        //Generate Response
+        Map<String, Object> response = new HashMap<>();
+        response.put("ResponseSuccess", email);
 
-   /**
-    * Send email info and news response entity.
-    *
-    * @param emailRequest the email request
-    * @return the response entity
-    * @throws MessagingException the messaging exception
-    */
-   @PostMapping("/sendInfoAndNews")
-   @ApiOperation(value = "Info and News", tags = {"Email"})
-   public ResponseEntity<?> sendEmailInfoAndNews(@RequestBody EmailRequest emailRequest) throws MessagingException {
-      Mail email = new Mail();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
-      email.setFrom(emailRequest.getFrom());
-      email.setTo(emailRequest.getTo());
-      email.setSubject(emailRequest.getSubject());
+    /**
+     * Send email info and news response entity.
+     *
+     * @param emailRequest the email request
+     * @return the response entity
+     * @throws MessagingException the messaging exception
+     */
+    @PostMapping("/info")
+    @ApiOperation(value = "Info and News", tags = {"Email"})
+    public ResponseEntity<?> sendEmailInfoAndNews(@RequestBody EmailRequest emailRequest) throws MessagingException {
+        Mail email = new Mail();
 
-      Map<String, Object> payload = new HashMap<>();
-      String token = RandomUtil.generateRandomStringNumber(6).toUpperCase();
-      String username = "Eko Sutrisno";
+        email.setFrom(EMAIL_FROM);
+        email.setTo(emailRequest.getTo());
+        email.setSubject(emailRequest.getSubject());
 
-      payload.put("token", token);
-      payload.put("username", username);
-      email.setModel(payload);
+        Map<String, Object> payload = new HashMap<>();
+        String token = RandomUtil.generateRandomStringNumber(6).toUpperCase();
+        String username = "Eko Sutrisno";
 
-      //Sending Info And News
-      mailService.sendEmailInfoAndNews(email);
+        payload.put("token", token);
+        payload.put("username", username);
+        email.setModel(payload);
 
-      //Generate Response
-      Map<String, Object> response = new HashMap<>();
-      response.put("ResponseSuccess", email);
+        //Sending Info And News
+        mailService.sendEmailInfoAndNews(email);
 
-      return new ResponseEntity<>(response, HttpStatus.OK);
-   }
+        //Generate Response
+        Map<String, Object> response = new HashMap<>();
+        response.put("ResponseSuccess", email);
 
-   /**
-    * Forgot password response entity.
-    *
-    * @param emailRequest the email request
-    * @param request      the request
-    * @return the response entity
-    * @throws MessagingException the messaging exception
-    */
-   @PostMapping("/forgotPassword")
-   @ApiOperation(value = "Reset Password", tags = {"Email"})
-   public ResponseEntity<?> forgotPassword(@RequestBody EmailRequest emailRequest, HttpServletRequest request) throws MessagingException {
-      Mail email = new Mail();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
-      email.setFrom(emailRequest.getFrom());
-      email.setTo(emailRequest.getTo());
-      email.setSubject(emailRequest.getSubject());
+    /**
+     * Forgot password response entity.
+     *
+     * @param emailRequest the email request
+     * @param request      the request
+     * @return the response entity
+     * @throws MessagingException the messaging exception
+     */
+    @PostMapping("/forgot-password")
+    @ApiOperation(value = "Reset Password", tags = {"Email"})
+    public ResponseEntity<?> forgotPassword(@RequestBody EmailRequestForgotPassword emailRequest, HttpServletRequest request) throws MessagingException {
+        Mail email = new Mail();
 
-      Map<String, Object> payload = new HashMap<>();
-      String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-      UUID token = UUID.randomUUID();
+        email.setFrom(emailRequest.getFrom());
+        email.setTo(emailRequest.getTo());
+        email.setSubject(emailRequest.getSubject());
 
-      payload.put("username", "Eko Sutrisno");
-      payload.put("ttd", "Team Supports");
-      payload.put("resetUrl", url + "/reset-password?token=" + passwordEncoder.encode(token.toString()));
+        Map<String, Object> payload = new HashMap<>();
 
-      email.setModel(payload);
-      //Sending email
-      mailService.sendEmailForgotPassword(email);
+        payload.put("username", emailRequest.getUsername());
+        payload.put("ttd", "MTodo Team");
+        payload.put("resetUrl", emailRequest.getUrl());
 
-      //Generate Response
-      Map<String, Object> response = new HashMap<>();
-      response.put("ResponseSuccess", email);
+        email.setModel(payload);
+        //Sending email
+        mailService.sendEmailForgotPassword(email);
 
-      return new ResponseEntity<>(response, HttpStatus.OK);
-   }
+        //Generate Response
+        Map<String, Object> response = new HashMap<>();
+        response.put("ResponseSuccess", email);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

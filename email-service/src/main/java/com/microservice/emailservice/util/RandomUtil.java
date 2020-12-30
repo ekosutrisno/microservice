@@ -4,7 +4,7 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 /**
- * RandomUtil buat custom kode konfimasi
+ * The type Random util.
  */
 public class RandomUtil {
 
@@ -15,12 +15,12 @@ public class RandomUtil {
   private static final String DATA_FOR_RANDOM_STRING = CHAR_LOWER + CHAR_UPPER + NUMBER;
   private static final SecureRandom random = new SecureRandom();
 
-  /**
-   * Generate random string string.
-   *
-   * @return the string
-   */
-  public static String generateRandomString() {
+    /**
+     * Generate random string string.
+     *
+     * @return the string
+     */
+    public static String generateRandomString() {
 
     int batasAwal = 97; // dimulai dari hurup 'a'
     int batasAkhir = 122; // diakhiri dengan hurup 'z'
@@ -39,13 +39,13 @@ public class RandomUtil {
     return generetedString.toUpperCase();
   }
 
-  /**
-   * Generate random string number string.
-   *
-   * @param panjang the panjang
-   * @return the string
-   */
-  public static String generateRandomStringNumber(int panjang) {
+    /**
+     * Generate random string number string.
+     *
+     * @param panjang the panjang
+     * @return the string
+     */
+    public static String generateRandomStringNumber(int panjang) {
     if (panjang < 1)
       throw new IllegalArgumentException();
 

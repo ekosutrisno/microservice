@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * MailService
+ * The type Mail service.
  */
 @Component
 public class MailService {
@@ -77,7 +77,7 @@ public class MailService {
 
       Context context = new Context();
       context.setVariables(mail.getModel());
-      String html = templateEngine.process("email/verify-password", context);
+      String html = templateEngine.process("email/verify-passwords", context);
 
       helper.setTo(mail.getTo());
       helper.setText(html, true);

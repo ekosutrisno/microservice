@@ -3,36 +3,57 @@ package com.microservice.emailservice.model;
 import java.io.Serializable;
 
 /**
- * The type Email request.
+ * The type Email request forgot password.
  */
-public class EmailRequest implements Serializable {
+public class EmailRequestForgotPassword implements Serializable {
    private String from;
    private String to;
    private String subject;
    private String username;
    private String token;
+   private String url;
 
     /**
-     * Instantiates a new Email request.
-     */
-    public EmailRequest() {
-   }
-
-    /**
-     * Instantiates a new Email request.
+     * Instantiates a new Email request forgot password.
      *
      * @param from     the from
      * @param to       the to
      * @param subject  the subject
      * @param username the username
      * @param token    the token
+     * @param url      the url
      */
-    public EmailRequest(String from, String to, String subject, String username, String token) {
+    public EmailRequestForgotPassword(String from, String to, String subject, String username, String token, String url) {
       this.from = from;
       this.to = to;
       this.subject = subject;
       this.username = username;
       this.token = token;
+      this.url = url;
+   }
+
+    /**
+     * Instantiates a new Email request forgot password.
+     */
+    public EmailRequestForgotPassword() {
+   }
+
+    /**
+     * Gets url.
+     *
+     * @return the url
+     */
+    public String getUrl() {
+      return url;
+   }
+
+    /**
+     * Sets url.
+     *
+     * @param url the url
+     */
+    public void setUrl(String url) {
+      this.url = url;
    }
 
     /**
